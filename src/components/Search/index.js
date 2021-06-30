@@ -1,11 +1,27 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { ArticleContext } from "../../context/ArticleContext";
+
+const baseUrl = "https://recruit-api.yonple.com/recruit/";
+const token = process.env.REACT_APP_TOKEN;
 
 function Search() {
   const [query, setQuery] = useState("");
   const queryInput = useRef();
+  const { setArticle } = useContext(ArticleContext);
+
+  useEffect(() => {
+    if (query) {
+      axios.get(baseUrl + token + "/a-posts?search=" + query).then((res) => {
+        const searchedArticles = res.data;
+        console.log(query, searchedArticles);
+        setArticle(searchedArticles);
+      });
+    }
+  }, [query]);
 
   return (
     <>
