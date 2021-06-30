@@ -45,9 +45,9 @@ function Board() {
           article.map((a) => (
             <ArticleBox key={a.id}>
               <h4>
-                {a.id}. {a.title}
+                <Number>{a.id}.</Number> {a.title}
               </h4>
-              {a.content}
+              <p>{a.content}</p>
             </ArticleBox>
           ))}
       </Container>
@@ -66,12 +66,32 @@ const Container = styled.div`
 `;
 
 const ArticleBox = styled.div`
-  padding: 10px 5px;
+  padding: 15px;
   margin: 5px;
   box-shadow: rgba(0, 0, 0, 0.1);
 
   :hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.05);
     cursor: pointer;
   }
+
+  h4 {
+    display: flex;
+    margin-bottom: 3px;
+  }
+
+  p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+  }
+`;
+
+const Number = styled.h4`
+  color: #0575e6;
+  display: flex;
+  margin-right: 5px;
 `;
