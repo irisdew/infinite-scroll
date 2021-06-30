@@ -1,7 +1,10 @@
 import React from "react";
+import { useHistory } from "react-router";
 import styled from "styled-components";
 
 function Detail() {
+  const history = useHistory();
+
   return (
     <Container>
       <Wrapper>
@@ -15,7 +18,13 @@ function Detail() {
         </p>
       </Wrapper>
       <div style={{ width: "80%" }}>
-        <Button>뒤로가기</Button>
+        <Button
+          onClick={() => {
+            history.push("/");
+          }}
+        >
+          뒤로가기
+        </Button>
       </div>
     </Container>
   );

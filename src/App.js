@@ -1,25 +1,26 @@
 import React from "react";
-import { ArticleProvider } from "./context/ArticleContext";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 import Detail from "./pages/Detail";
 import Main from "./pages/Main";
 
 function App() {
   return (
-    <>
-      <ArticleProvider>
-        <div
-          style={{
-            position: "absolute",
-            top: "0",
-            background: "linear-gradient(to right, #0575e6, #00f260)",
-            width: "100%",
-            height: "13px",
-          }}
-        ></div>
-        <Detail />
-        <Main />
-      </ArticleProvider>
-    </>
+    <Router>
+      <div
+        style={{
+          position: "absolute",
+          top: "0",
+          background: "linear-gradient(to right, #0575e6, #00f260)",
+          width: "100%",
+          height: "13px",
+        }}
+      ></div>
+      <Switch>
+        <Route exact path="/" component={Main} />
+        <Route exact path="/article/:id" component={Detail} />
+      </Switch>
+    </Router>
   );
 }
 

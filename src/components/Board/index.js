@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router";
 import styled from "styled-components";
 import axios from "axios";
 import { ArticleContext } from "../../context/ArticleContext";
@@ -7,6 +8,7 @@ const baseUrl = "https://recruit-api.yonple.com/recruit/";
 const token = process.env.REACT_APP_TOKEN;
 
 function Board() {
+  const history = useHistory();
   const { article, setArticle } = useContext(ArticleContext);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(0);
@@ -43,7 +45,13 @@ function Board() {
       <Container key={page}>
         {article &&
           article.map((a) => (
-            <ArticleBox key={a.id}>
+            <ArticleBox
+              key={a.id}
+              onClick={() => {
+                console.log(a.id);
+                history.push(`/article/${a.id}`);
+              }}
+            >
               <h4>
                 <Number>{a.id}.</Number> {a.title}
               </h4>
@@ -63,6 +71,7 @@ const Container = styled.div`
   margin: 20px;
   padding: 20px 30px;
   border: solid 0.1px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
 `;
 
 const ArticleBox = styled.div`
