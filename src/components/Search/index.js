@@ -1,17 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 function Search() {
   const [query, setQuery] = useState("");
+  const queryInput = useRef();
 
   return (
     <>
-      <div style={{ position: "relative" }}>
-        <FontAwesomeIcon icon={faSearch} style={{ position: "absolute", left: "20px", top: "23px", color: "c4c4c4" }} />
+      <Wrapper>
+        <SearchIcon
+          icon={faSearch}
+          onClick={() => {
+            queryInput.current.focus();
+            // document.getElementsByTagName("input").select();
+          }}
+        />
         <Input
           type="text"
+          ref={queryInput}
           value={query}
           placeholder="검색어를 입력하세요"
           onChange={(e) => {
@@ -19,12 +27,24 @@ function Search() {
             console.log(query);
           }}
         ></Input>
-      </div>
+      </Wrapper>
     </>
   );
 }
 
 export default Search;
+
+const Wrapper = styled.div`
+  position: relative;
+`;
+
+const SearchIcon = styled(FontAwesomeIcon)`
+  position: absolute;
+  left: 20px;
+  top: 23px;
+  color: #c4c4c4;
+  cursor: pointer;
+`;
 
 const Input = styled.input`
   padding: 5px 7px 5px 30px;
