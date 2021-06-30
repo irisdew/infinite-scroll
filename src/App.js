@@ -5,22 +5,6 @@ import Board from "./components/Board";
 import Search from "./components/Search";
 
 function App() {
-  const [page, setPage] = useState(0);
-
-  const handleScroll = (e) => {
-    const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
-    // console.log("Scrolltop: ", scrollTop);
-    // console.log("clientHeight: ", clientHeight);
-    // console.log("scrollHeight: ", scrollHeight);
-    if (scrollHeight - scrollTop === clientHeight) {
-      setPage((prev) => prev + 1);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-  }, []);
-
   return (
     <>
       <ArticleProvider>
@@ -39,7 +23,7 @@ function App() {
           <br />
           <Search />
           <br />
-          <Board page={page} />
+          <Board />
         </Container>
       </ArticleProvider>
     </>
