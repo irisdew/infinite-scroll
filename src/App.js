@@ -1,5 +1,6 @@
 import React from "react";
 import { ArticleProvider } from "./context/ArticleContext";
+import Detail from "./pages/Detail";
 import Main from "./pages/Main";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
             height: "13px",
           }}
         ></div>
+        <Detail />
         <Main />
       </ArticleProvider>
     </>
