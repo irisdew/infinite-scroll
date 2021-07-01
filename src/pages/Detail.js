@@ -1,21 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useHistory } from "react-router";
 import styled from "styled-components";
 
-function Detail() {
+const baseUrl = "https://recruit-api.yonple.com/recruit/";
+const token = process.env.REACT_APP_TOKEN;
+
+function Detail(props) {
   const history = useHistory();
+  const id = props.match.params.id;
+  const [article, setArticle] = useState([]);
+
+  useEffect(() => {
+    axios.get(baseUrl + token + "/a-posts/" + id).then((res) => {
+      setArticle(res.data);
+    });
+  }, [id]);
 
   return (
     <Container>
       <Wrapper>
-        <h2>Rerum voluptatibus et doloremque.</h2>
-        <p>
-          Ut ut et omnis. Ipsam nihil suscipit. Omnis dolorum at quidem. Omnis sapiente beatae neque facilis ipsum
-          suscipit aut. Id voluptatum iusto rerum voluptatibus. Sed commodi ea quaerat ipsum esse quis cum ducimus
-          dicta. Enim quia ut velit velit quaerat non laudantium. Eveniet voluptates et repellendus aperiam et
-          recusandae dolorum. Vel quisquam et aut sint cupiditate debitis sed. Delectus voluptatem et explicabo quia
-          ullam sunt quos. Accusantium neque et possimus quo voluptatum. A voluptatem minima ut in dolor.
-        </p>
+        <h2>{article.title}</h2>
+        <p>{article.content}</p>
       </Wrapper>
       <div style={{ width: "80%" }}>
         <Button
