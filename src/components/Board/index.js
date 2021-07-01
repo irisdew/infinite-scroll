@@ -29,7 +29,6 @@ function Board() {
   }, []);
 
   useEffect(() => {
-    // console.log("페이지 변경", page);
     const loadArticles = async (page) => {
       setLoading(true);
       axios.get(baseUrl + token + `/${type}-posts?page=` + page).then((res) => {
@@ -75,7 +74,7 @@ export default Board;
 
 const Container = styled.div`
   width: 80%;
-  margin: 20px;
+  margin: 5px 20px 20px;
   padding: 20px 30px;
   border: solid 0.1px rgba(0, 0, 0, 0.05);
   box-sizing: border-box;
