@@ -11,17 +11,17 @@ const token = process.env.REACT_APP_TOKEN;
 function Search() {
   const [query, setQuery] = useState("");
   const queryInput = useRef();
-  const { setArticle } = useContext(ArticleContext);
+  const { setArticle, type } = useContext(ArticleContext);
 
   useEffect(() => {
     if (query) {
-      axios.get(baseUrl + token + "/a-posts?search=" + query).then((res) => {
+      axios.get(baseUrl + token + `/${type}-posts?search=` + query).then((res) => {
         const searchedArticles = res.data;
         console.log(query, searchedArticles);
         setArticle(searchedArticles);
       });
     }
-  }, [query]);
+  }, [query, setArticle, type]);
 
   return (
     <>

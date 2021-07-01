@@ -9,9 +9,10 @@ const token = process.env.REACT_APP_TOKEN;
 
 function Board() {
   const history = useHistory();
-  const { article, setArticle } = useContext(ArticleContext);
+  const { article, setArticle, type } = useContext(ArticleContext);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(0);
+  const [currentType, setCurrentType] = useState("a");
 
   const handleScroll = (e) => {
     const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
@@ -31,14 +32,20 @@ function Board() {
     // console.log("페이지 변경", page);
     const loadArticles = async (page) => {
       setLoading(true);
-      axios.get(baseUrl + token + "/a-posts?page=" + page).then((res) => {
+      axios.get(baseUrl + token + `/${type}-posts?page=` + page).then((res) => {
         const newArticle = res.data;
-        setArticle((prev) => [...prev, ...newArticle]);
+        if (currentType !== type || page === 0) {
+          setArticle(newArticle);
+          setPage(0);
+          setCurrentType(type);
+        } else {
+          setArticle((prev) => [...prev, ...newArticle]);
+        }
       });
       setLoading(false);
     };
     loadArticles(page);
-  }, [page]);
+  }, [page, type, setArticle, currentType]);
 
   return (
     <>

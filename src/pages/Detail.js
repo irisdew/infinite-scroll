@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
 import styled from "styled-components";
+import { ArticleContext } from "../context/ArticleContext";
 
 const baseUrl = "https://recruit-api.yonple.com/recruit/";
 const token = process.env.REACT_APP_TOKEN;
@@ -9,13 +10,15 @@ const token = process.env.REACT_APP_TOKEN;
 function Detail(props) {
   const history = useHistory();
   const id = props.match.params.id;
+  const { type } = useContext(ArticleContext);
+  console.log("type from Detail", type);
   const [article, setArticle] = useState([]);
 
   useEffect(() => {
-    axios.get(baseUrl + token + "/a-posts/" + id).then((res) => {
+    axios.get(baseUrl + token + `/${type}-posts/` + id).then((res) => {
       setArticle(res.data);
     });
-  }, [id]);
+  }, [id, type]);
 
   return (
     <Container>
