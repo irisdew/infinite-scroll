@@ -43,7 +43,9 @@ function Board() {
       });
       setLoading(false);
     };
-    loadArticles(page);
+    if (page <= 10) {
+      loadArticles(page);
+    }
   }, [page, type, setArticle, currentType]);
 
   return (
