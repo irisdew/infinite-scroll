@@ -8,20 +8,39 @@ import { ArticleContext } from "../../context/ArticleContext";
 const baseUrl = "https://recruit-api.yonple.com/recruit/";
 const token = process.env.REACT_APP_TOKEN;
 
+const useDebounce = (value, delay) => {
+  const [debounceValue, setDebounceValue] = useState(value);
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebounceValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debounceValue;
+};
+
 function Search() {
   const [query, setQuery] = useState("");
+  const debounceQuery = useDebounce(query, 150);
   const queryInput = useRef();
   const { setArticle, type } = useContext(ArticleContext);
 
   useEffect(() => {
-    if (query) {
-      axios.get(baseUrl + token + `/${type}-posts?search=` + query).then((res) => {
+    if (debounceQuery) {
+      console.log("now searching");
+
+      axios.get(baseUrl + token + `/${type}-posts?search=` + debounceQuery).then((res) => {
         const searchedArticles = res.data;
-        console.log(query, searchedArticles);
+        console.log(debounceQuery, searchedArticles);
         setArticle(searchedArticles);
       });
+    } else {
     }
-  }, [query, setArticle, type]);
+  }, [setArticle, type, debounceQuery]);
 
   return (
     <>
