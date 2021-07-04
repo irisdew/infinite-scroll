@@ -20,7 +20,7 @@ function Board() {
     // console.log("clientHeight: ", clientHeight);
     // console.log("scrollHeight: ", scrollHeight);
     if (scrollHeight - scrollTop <= clientHeight) {
-      setPage((prev) => prev + 1);
+      setPage((prev) => (prev < 9 ? prev + 1 : prev));
     }
   };
 
@@ -86,17 +86,14 @@ const ArticleBox = styled.div`
   padding: 15px;
   margin: 5px;
   box-shadow: rgba(0, 0, 0, 0.1);
-
   :hover {
     background-color: rgba(0, 0, 0, 0.05);
     cursor: pointer;
   }
-
   h4 {
     display: flex;
     margin-bottom: 3px;
   }
-
   p {
     overflow: hidden;
     text-overflow: ellipsis;
