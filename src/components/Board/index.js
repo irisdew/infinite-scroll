@@ -19,7 +19,7 @@ function Board() {
     // console.log("Scrolltop: ", scrollTop);
     // console.log("clientHeight: ", clientHeight);
     // console.log("scrollHeight: ", scrollHeight);
-    if (scrollHeight - scrollTop === clientHeight) {
+    if (scrollHeight - scrollTop <= clientHeight) {
       setPage((prev) => prev + 1);
     }
   };
