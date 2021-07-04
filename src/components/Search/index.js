@@ -27,20 +27,21 @@ function Search() {
   const [query, setQuery] = useState("");
   const debounceQuery = useDebounce(query, 150);
   const queryInput = useRef();
-  const { setArticle, type } = useContext(ArticleContext);
+  const { setArticle, type, setIsSearching } = useContext(ArticleContext);
 
   useEffect(() => {
     if (debounceQuery) {
       console.log("now searching");
-
+      setIsSearching(true);
       axios.get(baseUrl + token + `/${type}-posts?search=` + debounceQuery).then((res) => {
         const searchedArticles = res.data;
         console.log(debounceQuery, searchedArticles);
         setArticle(searchedArticles);
       });
-    } else {
+    } else if (debounceQuery === "") {
+      setIsSearching(false);
     }
-  }, [setArticle, type, debounceQuery]);
+  }, [setArticle, type, debounceQuery, setIsSearching]);
 
   return (
     <>

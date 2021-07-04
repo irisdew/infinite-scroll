@@ -9,7 +9,7 @@ const token = process.env.REACT_APP_TOKEN;
 
 function Board() {
   const history = useHistory();
-  const { article, setArticle, type } = useContext(ArticleContext);
+  const { article, setArticle, type, isSearching } = useContext(ArticleContext);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(0);
   const [currentType, setCurrentType] = useState("a");
@@ -34,9 +34,12 @@ function Board() {
       axios.get(baseUrl + token + `/${type}-posts?page=` + page).then((res) => {
         const newArticle = res.data;
         if (currentType !== type || page === 0) {
-          setArticle(newArticle);
-          setPage(0);
-          setCurrentType(type);
+          if (!isSearching) {
+            console.log("resetArticles");
+            setArticle(newArticle);
+            setPage(0);
+            setCurrentType(type);
+          }
         } else {
           setArticle((prev) => [...prev, ...newArticle]);
         }
