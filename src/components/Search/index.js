@@ -31,11 +31,9 @@ function Search() {
 
   useEffect(() => {
     if (debounceQuery) {
-      console.log("now searching");
       setIsSearching(true);
       axios.get(baseUrl + token + `/${type}-posts?search=` + debounceQuery).then((res) => {
         const searchedArticles = res.data;
-        console.log(debounceQuery, searchedArticles);
         setArticle(searchedArticles);
       });
     } else if (debounceQuery === "") {
@@ -50,7 +48,6 @@ function Search() {
           icon={faSearch}
           onClick={() => {
             queryInput.current.focus();
-            // document.getElementsByTagName("input").select();
           }}
         />
         <Input

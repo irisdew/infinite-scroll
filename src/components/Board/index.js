@@ -16,9 +16,6 @@ function Board() {
 
   const handleScroll = (e) => {
     const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
-    // console.log("Scrolltop: ", scrollTop);
-    // console.log("clientHeight: ", clientHeight);
-    // console.log("scrollHeight: ", scrollHeight);
     if (scrollHeight - scrollTop <= clientHeight) {
       setPage((prev) => (prev < 9 ? prev + 1 : prev));
     }
@@ -35,7 +32,6 @@ function Board() {
         const newArticle = res.data;
         if (currentType !== type || page === 0) {
           if (!isSearching) {
-            console.log("resetArticles");
             setArticle(newArticle);
             setPage(0);
             setCurrentType(type);
@@ -49,7 +45,7 @@ function Board() {
     if (page <= 10) {
       loadArticles(page);
     }
-  }, [page, type, setArticle, currentType]);
+  }, [page, type, setArticle, currentType, isSearching]);
 
   return (
     <>
@@ -59,7 +55,6 @@ function Board() {
             <ArticleBox
               key={a.id}
               onClick={() => {
-                console.log(a.id);
                 history.push(`/article/${a.id}`);
               }}
             >

@@ -11,7 +11,6 @@ function Detail(props) {
   const history = useHistory();
   const id = props.match.params.id;
   const { type } = useContext(ArticleContext);
-  console.log("type from Detail", type);
   const [article, setArticle] = useState([]);
 
   useEffect(() => {
